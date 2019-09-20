@@ -1,0 +1,38 @@
+# Maintainer: signageOS <dev@signageos.io>
+pkgname="wpebackend-rdk"
+pkgver="1.0"
+pkgrel=0
+pkgdesc="wpebackend-rdk"
+url="https://wpewebkit.org"
+arch="armhf armv7"
+license="custom"
+depends="libxkbcommon libwpe raspberrypi mesa"
+makedepends="cmake ninja eudev-dev libxkbcommon-dev glib-dev libinput-dev mesa-dev raspberrypi-dev"
+options="!check"
+_commitid="c01081110c0feb3c82fe5f8d2190b10c5e55ed80"
+source="
+    $pkgname-$pkgver.tar.gz::https://github.com/WebPlatformForEmbedded/WPEBackend-rdk/archive/$_commitid.tar.gz
+    fix.patch
+"
+builddir="$srcdir"/WPEBackend-rdk-$_commitid
+
+build() {
+    cd "$builddir"
+    cmake \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DWPE_INCLUDE_DIRS=/usr/include/wpe-1.0 \
+        -DBCM_HOST_INCLUDE_DIRS=/opt/vc/include \
+        -DUSE_BACKEND_BCM_RPI=ON \
+        -GNinja
+    ninja
+}
+
+package() {
+    cd "$builddir"
+    DESTDIR="$pkgdir" ninja install
+    mv "$pkgdir"/usr/local/* "$pkgdir"/usr
+    rmdir "$pkgdir"/usr/local
+}
+
+sha512sums="823039b375b261e489e265c8e602ba1bb443330d8078674a38c1dc376050c01dd08a08bc7976adef9ce95386da88d239922a3ea3e759a316acf51b5e1974d761  wpebackend-rdk-1.0.tar.gz
+0686c00956c2814a41cbed4e7df1ccac6e7b1abce81aad26121f8760906e39c75f11f4ba773f4fc05c1a2e2d563b04cfca653d9ab54f118af115e3544461b985  fix.patch"
