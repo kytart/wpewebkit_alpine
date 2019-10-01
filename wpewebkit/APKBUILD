@@ -7,7 +7,7 @@ pkgdesc="Portable web rendering engine WPEWebKit"
 url="https://wpewebkit.org/"
 arch="armhf armv7"
 license="custom"
-depends="libsoup"
+depends="glib=~2.62 libsoup"
 makedepends="
 	cmake
 	ninja
@@ -19,6 +19,7 @@ makedepends="
 	jpeg-dev
 	libepoxy-dev
 	libgcrypt-dev
+	glib-dev=~2.62
 	libsoup-dev
 	libwebp-dev
 	atk-dev
