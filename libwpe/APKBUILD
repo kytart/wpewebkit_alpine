@@ -1,19 +1,23 @@
 # Maintainer: signageOS <dev@signageos.io>
 pkgname="libwpe"
-pkgver="1.3.1"
+pkgver="1.4.0.1"
 pkgrel=0
 pkgdesc="libwpe"
 url="https://wpewebkit.org"
 arch="armhf armv7"
 license="custom"
-makedepends="mesa-dev libxkbcommon-dev ninja"
+depends="raspberrypi"
+makedepends="raspberrypi-dev libxkbcommon-dev ninja"
 options="!check"
 source="https://wpewebkit.org/releases/${pkgname}-${pkgver}.tar.xz"
 builddir="$srcdir"/$pkgname-$pkgver
 
 build() {
     cd "$builddir"
-    cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -GNinja
+    cmake \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DEGL_INCLUDE_DIRS=/opt/vc/include \
+        -GNinja
     ninja
 }
 

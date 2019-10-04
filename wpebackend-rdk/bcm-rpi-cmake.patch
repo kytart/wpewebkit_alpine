@@ -1,0 +1,8 @@
+--- a/src/bcm-rpi/CMakeLists.txt
++++ b/src/bcm-rpi/CMakeLists.txt
+@@ -18,3 +18,5 @@
+     src/bcm-rpi/renderer-backend.cpp
+     src/bcm-rpi/view-backend.cpp
+ )
++
++link_directories(/opt/vc/lib)

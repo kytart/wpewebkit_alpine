@@ -1,19 +1,18 @@
 # Maintainer: signageOS <dev@signageos.io>
 # Maintainer: Andrii Guriev <bearrailgun@gmail.com>
 pkgname=wpewebkit
-pkgver=2.25.1
+pkgver=2.26.1
 pkgrel=0
 pkgdesc="Portable web rendering engine WPEWebKit"
 url="https://wpewebkit.org/"
 arch="armhf armv7"
 license="custom"
-depends="glib=~2.62 libsoup"
+depends="glib=~2.62 libsoup raspberrypi"
 makedepends="
 	cmake
 	ninja
 	perl
 	ruby
-	cairo-dev
 	libintl
 	icu-dev
 	jpeg-dev
@@ -44,15 +43,14 @@ makedepends="
 	libsecret-dev
 	libxml2-dev
 	libxt-dev
-	mesa-dev
 	pango-dev
 	paxmark
 	python2
 	sqlite-dev
-	libxkbcommon-dev
 	wayland-dev
 	wayland-protocols
 	libwpe
+	raspberrypi-dev
 	wpebackend-fdo
 	"
 replaces="webkit"
@@ -76,6 +74,9 @@ build() {
 		-DCMAKE_BUILD_TYPE=MinSizeRel \
 		-DWPE_INCLUDE_DIRS=/usr/include/wpe-1.0 \
 		-DWPEBACKEND_FDO_INCLUDE_DIRS=/usr/include/wpe-fdo-1.0 \
+		-DEGL_INCLUDE_DIRS=/opt/vc/include \
+		-DEGL_NAMES=EGL \
+		-DPC_EGL_LIBRARY_DIRS=/opt/vc/lib \
 		-DCMAKE_SKIP_RPATH=ON \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DLIB_INSTALL_DIR=/usr/lib \

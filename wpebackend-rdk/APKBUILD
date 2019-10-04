@@ -6,12 +6,13 @@ pkgdesc="wpebackend-rdk"
 url="https://wpewebkit.org"
 arch="armhf armv7"
 license="custom"
-depends="libxkbcommon libwpe raspberrypi mesa"
-makedepends="cmake ninja eudev-dev libxkbcommon-dev glib-dev libinput-dev mesa-dev raspberrypi-dev"
+depends="libxkbcommon libwpe raspberrypi libinput"
+makedepends="cmake ninja eudev-dev libxkbcommon-dev glib-dev libinput-dev raspberrypi-dev"
 options="!check"
-_commitid="c01081110c0feb3c82fe5f8d2190b10c5e55ed80"
+_commitid="e3f442523072444c0202b508f3688d9026f9c41f"
 source="
     $pkgname-$pkgver.tar.gz::https://github.com/WebPlatformForEmbedded/WPEBackend-rdk/archive/$_commitid.tar.gz
+    bcm-rpi-cmake.patch
     fix.patch
 "
 builddir="$srcdir"/WPEBackend-rdk-$_commitid
@@ -22,6 +23,9 @@ build() {
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DWPE_INCLUDE_DIRS=/usr/include/wpe-1.0 \
         -DBCM_HOST_INCLUDE_DIRS=/opt/vc/include \
+        -DEGL_INCLUDE_DIRS=/opt/vc/include \
+        -DBCM_HOST_LIBRARIES=bcm_host \
+        -DEGL_LIBRARIES=EGL \
         -DUSE_BACKEND_BCM_RPI=ON \
         -GNinja
     ninja

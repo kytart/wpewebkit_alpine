@@ -1,13 +1,13 @@
 # Maintainer: signageOS <dev@signageos.io>
 pkgname="wpebackend-fdo"
-pkgver="1.3.1"
+pkgver="1.4.0"
 pkgrel=0
 pkgdesc="wpebackend-fdo"
 url="https://wpewebkit.org"
 arch="armhf armv7"
 license="custom"
 depends="wayland-libs-server mesa libxkbcommon libwpe"
-makedepends="mesa-dev libxkbcommon-dev glib-dev wayland-dev ninja"
+makedepends="cmake mesa-dev libxkbcommon-dev glib-dev wayland-dev ninja"
 options="!check"
 source="https://wpewebkit.org/releases/${pkgname}-${pkgver}.tar.xz"
 builddir="$srcdir"/$pkgname-$pkgver
