@@ -1,7 +1,7 @@
 # Maintainer: signageOS <dev@signageos.io>
 # Maintainer: Andrii Guriev <bearrailgun@gmail.com>
 pkgname=wpewebkit
-pkgver=2.26.1
+pkgver=2.22.5
 pkgrel=0
 pkgdesc="Portable web rendering engine WPEWebKit"
 url="https://wpewebkit.org/"
@@ -13,10 +13,11 @@ makedepends="
 	ninja
 	perl
 	ruby
+	cairo-dev
 	libintl
 	icu-dev
 	jpeg-dev
-	libepoxy-dev
+	libepoxy-rpi-dev
 	libgcrypt-dev
 	glib-dev=~2.62
 	libsoup-dev
@@ -32,9 +33,6 @@ makedepends="
 	bubblewrap
 	libseccomp-dev
 	xdg-dbus-proxy
-	gstreamer-dev
-	gst-plugins-base-dev
-	gst-plugins-bad-dev
 	gperf
 	hyphen-dev
 	libjpeg-turbo-dev
@@ -47,18 +45,14 @@ makedepends="
 	paxmark
 	python2
 	sqlite-dev
-	wayland-dev
-	wayland-protocols
 	libwpe
 	raspberrypi-dev
-	wpebackend-fdo
 	"
 replaces="webkit"
 options="!check" # upstream doesn't package them in release tarballs: Tools/Scripts/run-gtk-tests: Command not found
 source="https://wpewebkit.org/releases/${pkgname}-${pkgver}.tar.xz
 	cmakelists.patch
 	fix-fast-memory-disabled.patch
-	fix-openjpeg.patch
 	"
 builddir="$srcdir/wpewebkit-$pkgver"
 
@@ -72,18 +66,21 @@ build() {
 	cmake -GNinja \
 		-DPORT=WPE \
 		-DCMAKE_BUILD_TYPE=MinSizeRel \
-		-DWPE_INCLUDE_DIRS=/usr/include/wpe-1.0 \
-		-DWPEBACKEND_FDO_INCLUDE_DIRS=/usr/include/wpe-fdo-1.0 \
-		-DEGL_INCLUDE_DIRS=/opt/vc/include \
-		-DEGL_NAMES=EGL \
-		-DPC_EGL_LIBRARY_DIRS=/opt/vc/lib \
 		-DCMAKE_SKIP_RPATH=ON \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DLIB_INSTALL_DIR=/usr/lib \
+		-DENABLE_ENCRYPTED_MEDIA=ON \
+		-DENABLE_FETCH_API=ON \
 		-DENABLE_GEOLOCATION=OFF \
+		-DUSE_GSTREAMER_GL=OFF \
+		-DENABLE_MEDIA_SOURCE=OFF \
+		-DENABLE_VIDEO=OFF \
+		-DENABLE_VIDEO_TRACK=OFF \
+		-DENABLE_WEB_AUDIO=OFF \
 		-DENABLE_SAMPLING_PROFILER=OFF \
-		-DENABLE_MINIBROWSER=ON \
-		-DUSE_WOFF2=OFF \
+		-DENABLE_MINIBROWSER=OFF \
+		-DUSE_WOFF2=ON \
+		-DENABLE_ACCELERATED_2D_CANVAS=ON \
 		-DCMAKE_CXX_STANDARD_LIBRARIES="$LDLIBS" \
 		-DENABLE_JIT=OFF \
 		..
@@ -105,7 +102,6 @@ package() {
 	#paxmark -m "$pkgdir"/usr/libexec/webkit2gtk-4.0/WebKitWebProcess
 }
 
-sha512sums="0b416b164cc9547a974e47be1b43658083642f93970a66f003676154e4c980ef0cbc6533f70e3f6de5b4d128da12cf9ef1717e7de270bd83bb87142ea9720c3c  wpewebkit-2.25.1.tar.xz
+sha512sums="d84ca94e4108e8e0a4fef6a34611d639f6f2de593092b5bc3fe6003edd594a33a2f4048215171d58128e8260033df8cee0901ab33d2528149d4d249084806e79  wpewebkit-2.22.5.tar.xz
 8d88263f33f610876ddea70d9d446539e65e316360eef4f11313280be001052bbe2e13dd778fb335f0945abaea2db1be8113af120716fc8326d1aff394737c0d  cmakelists.patch
-e1537b9937af1cb936669d405993a52204cb9968b8b3161cb12a3f3f1343c260088c9490fcd7a7deeab6dbabdb5f7ce7e6cb2f857b9f0a4205aba6db2b11fb20  fix-fast-memory-disabled.patch
-c517c012f5630ef6be5be7d9592c5e042a070f849a141859edefa7984acb98dbd0d718fe6613cd35ba3b7d8530beebcc7408fd077cd914ed335c5e524e9e746a  fix-openjpeg.patch"
+e1537b9937af1cb936669d405993a52204cb9968b8b3161cb12a3f3f1343c260088c9490fcd7a7deeab6dbabdb5f7ce7e6cb2f857b9f0a4205aba6db2b11fb20  fix-fast-memory-disabled.patch"
