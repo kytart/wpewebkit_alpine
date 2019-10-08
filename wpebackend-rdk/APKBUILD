@@ -19,13 +19,10 @@ builddir="$srcdir"/WPEBackend-rdk-$_commitid
 
 build() {
     cd "$builddir"
+    export PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig
     cmake \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-        -DWPE_INCLUDE_DIRS=/usr/include/wpe-1.0 \
-        -DBCM_HOST_INCLUDE_DIRS=/opt/vc/include \
-        -DEGL_INCLUDE_DIRS=/opt/vc/include \
-        -DBCM_HOST_LIBRARIES=bcm_host \
-        -DEGL_LIBRARIES=EGL \
+        -DCMAKE_INSTALL_PREFIX=/usr \
         -DUSE_BACKEND_BCM_RPI=ON \
         -GNinja
     ninja
@@ -34,9 +31,7 @@ build() {
 package() {
     cd "$builddir"
     DESTDIR="$pkgdir" ninja install
-    mv "$pkgdir"/usr/local/* "$pkgdir"/usr
-    rmdir "$pkgdir"/usr/local
 }
 
-sha512sums="823039b375b261e489e265c8e602ba1bb443330d8078674a38c1dc376050c01dd08a08bc7976adef9ce95386da88d239922a3ea3e759a316acf51b5e1974d761  wpebackend-rdk-1.0.tar.gz
-0686c00956c2814a41cbed4e7df1ccac6e7b1abce81aad26121f8760906e39c75f11f4ba773f4fc05c1a2e2d563b04cfca653d9ab54f118af115e3544461b985  fix.patch"
+sha512sums="157fd4f53f2ea74af41409e81cf731ec85983210951a8f303ad3baece45876bc949d5d467702f532fffd10dfbdcaf29795896065395b3318b1b53a0863ffae78  wpebackend-rdk-1.0.tar.gz
+a03b78815d2650ae6d0a5bea5c248cf6fd8af7ea5feafd3cbac6089b6917f4b4f0e991866b5bcbe7d68f44756dddbcc605d36ca2b2dba7749b6ca821c6fa3d60  bcm-rpi-cmake.patch"
