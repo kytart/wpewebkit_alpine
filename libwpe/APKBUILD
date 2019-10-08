@@ -16,6 +16,7 @@ build() {
     cd "$builddir"
     cmake \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_INSTALL_PREFIX=/usr \
         -DEGL_INCLUDE_DIRS=/opt/vc/include \
         -GNinja
     ninja
@@ -24,8 +25,6 @@ build() {
 package() {
     cd "$builddir"
     DESTDIR="$pkgdir" ninja install
-    mv "$pkgdir"/usr/local/* "$pkgdir"/usr
-    rmdir "$pkgdir"/usr/local
 }
 
 sha512sums="9c4648c64b58f5056ecd0a70a0e78176edb476500f74925ed2cbaa9f704d117f4427341d2cf5a5f2549a64b904ab7c796370343847452c5e1e5e45747b0ff5f9  libwpe-1.0.0.tar.xz"
