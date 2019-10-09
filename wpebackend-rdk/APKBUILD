@@ -13,7 +13,6 @@ _commitid="e3f442523072444c0202b508f3688d9026f9c41f"
 source="
     $pkgname-$pkgver.tar.gz::https://github.com/WebPlatformForEmbedded/WPEBackend-rdk/archive/$_commitid.tar.gz
     bcm-rpi-cmake.patch
-    fix.patch
 "
 builddir="$srcdir"/WPEBackend-rdk-$_commitid
 
