@@ -53,6 +53,7 @@ options="!check" # upstream doesn't package them in release tarballs: Tools/Scri
 source="https://wpewebkit.org/releases/${pkgname}-${pkgver}.tar.xz
 	cmakelists.patch
 	fix-fast-memory-disabled.patch
+	require-egl.patch
 	"
 builddir="$srcdir/wpewebkit-$pkgver"
 

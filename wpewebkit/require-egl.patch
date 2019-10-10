@@ -1,0 +1,10 @@
+--- a/Source/cmake/OptionsWPE.cmake
++++ b/Source/cmake/OptionsWPE.cmake
+@@ -84,6 +84,7 @@ find_package(Threads REQUIRED)
+ find_package(WebP REQUIRED)
+ find_package(WPE REQUIRED)
+ find_package(ZLIB REQUIRED)
++find_package(EGL REQUIRED)
+ 
+ if (USE_WOFF2
+     find_package(WOFF2Dec 1.0.2)
