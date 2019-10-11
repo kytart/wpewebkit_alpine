@@ -73,19 +73,23 @@ Then update list of packets.
 # abuild-keygen -a -i
 (key will be created in /etc/apk/keys)
 
-11. checksum
+11. make symlinks
+# ln -s /opt/vc/include/EGL /usr/lib/EGL
+# ln -s /opt/vc/include/interface /usr/lib/interface
+
+12. checksum
 # abuild checksum
 (abuild -F checksum)
 (abuild-keygen -a -i && abuild -F checksum)
 
-12. build package itself
+13. build package itself
 # abuild -r
 or
 # abuild -Fr
 
 (# CHOST=armhf abuild -Fr)
 
-13. testing package locally (not usually needed)
+14. testing package locally (not usually needed)
 # sudo apk add --repository /home/USER/packages/testing $pkgname
 
 # apk add --repository /root/packages/git/ libwpe               - really working command for wpe packet
