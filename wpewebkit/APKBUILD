@@ -1,7 +1,7 @@
 # Maintainer: signageOS <dev@signageos.io>
 # Maintainer: Andrii Guriev <bearrailgun@gmail.com>
 pkgname=wpewebkit
-pkgver=2.22.5
+pkgver=2.26.1
 pkgrel=0
 pkgdesc="Portable web rendering engine WPEWebKit"
 url="https://wpewebkit.org/"
@@ -57,6 +57,7 @@ options="!check" # upstream doesn't package them in release tarballs: Tools/Scri
 source="https://wpewebkit.org/releases/${pkgname}-${pkgver}.tar.xz
 	cmake.patch
 	fix-fast-memory-disabled.patch
+	fix-openjpeg.patch
 	"
 builddir="$srcdir/wpewebkit-$pkgver"
 

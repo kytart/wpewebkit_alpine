@@ -1,6 +1,6 @@
 # Maintainer: signageOS <dev@signageos.io>
 pkgname="cog"
-pkgver="0.2.0"
+pkgver="0.4.0"
 pkgrel=0
 pkgdesc="cog"
 url="https://github.com/Igalia/cog"
@@ -10,7 +10,8 @@ depends="wpewebkit"
 makedepends="cmake libwpe"
 options="!check"
 source="
-    https://github.com/Igalia/cog/releases/download/v$pkgver/cog-$pkgver.tar.xz
+    https://wpewebkit.org/releases/$pkgname-$pkgver.tar.xz
+    cmake.patch
 "
 builddir="$srcdir"/$pkgname-$pkgver
 
