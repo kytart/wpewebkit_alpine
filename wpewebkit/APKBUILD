@@ -20,6 +20,9 @@ makedepends="
 	libepoxy-rpi-dev
 	libgcrypt-dev
 	glib-dev=~2.62
+	gstreamer-dev
+	gst-plugins-base-dev
+	gst-plugins-bad-dev
 	libsoup-dev
 	libwebp-dev
 	atk-dev
@@ -73,9 +76,8 @@ build() {
 		-DENABLE_ENCRYPTED_MEDIA=ON \
 		-DENABLE_FETCH_API=ON \
 		-DENABLE_GEOLOCATION=OFF \
-		-DUSE_GSTREAMER_GL=OFF \
 		-DENABLE_MEDIA_SOURCE=OFF \
-		-DENABLE_VIDEO=OFF \
+		-DENABLE_VIDEO=ON \
 		-DENABLE_VIDEO_TRACK=OFF \
 		-DENABLE_WEB_AUDIO=OFF \
 		-DENABLE_SAMPLING_PROFILER=OFF \
