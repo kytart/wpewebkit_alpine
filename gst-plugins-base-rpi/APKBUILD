@@ -1,0 +1,41 @@
+# Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+pkgname=gst-plugins-base
+pkgver=1.16.0
+pkgrel=1
+pkgdesc="GStreamer streaming media framework base plug-ins"
+url="https://gstreamer.freedesktop.org"
+arch="all"
+license="GPL-2.0-or-later LGPL-2.0-or-later"
+subpackages="$pkgname-dev $pkgname-doc $pkgname-lang"
+replaces="gst-plugins-base1 gst-plugins-bad"
+makedepends="
+    alsa-lib-dev cdparanoia-dev expat-dev glib-dev gobject-introspection-dev gstreamer-dev libice-dev libogg-dev
+    libsm-dev libtheora-dev libvorbis-dev libxv-dev raspberrypi-dev meson opus-dev orc-compiler orc-dev perl
+    "
+source="https://gstreamer.freedesktop.org/src/gst-plugins-base/$pkgname-$pkgver.tar.xz"
+ldpath="/usr/lib/gstreamer-1.0"
+
+# sporadic testsuite failures on various archs, testsuite fails with network
+# restricted too
+options="!check"
+
+build() {
+	export PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig
+	meson --prefix=/usr --sysconfdir=/etc --mandir=/usr/share/man --localstatedir=/var --buildtype=release -Dalsa=enabled -Dintrospection=enabled -Dpackage-origin="https://alpinelinux.org" -Dpackage-name="GStreamer base plug-ins (Alpine Linux)" . output
+	ninja -C output
+}
+
+check() {
+	make check
+}
+
+package() {
+	DESTDIR="$pkgdir" ninja -C output install
+}
+
+doc() {
+	default_doc
+	replaces="${pkgname}1-doc"
+}
+
+sha512sums="4fa404156a384000e26e72ff0f701edb5a160181b48362350529177ca1c9325a3c58b83904bf5056262fe2609bc7f5913e835278973e049315deecfd1f26a3af  gst-plugins-base-1.16.0.tar.xz"
