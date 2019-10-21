@@ -74,8 +74,8 @@ Then update list of packets.
 (key will be created in /etc/apk/keys)
 
 11. make symlinks
-# ln -s /opt/vc/include/EGL /usr/lib/EGL
-# ln -s /opt/vc/include/interface /usr/lib/interface
+# ln -s /opt/vc/include/EGL /usr/include/EGL
+# ln -s /opt/vc/include/interface /usr/include/interface
 
 12. checksum
 # abuild checksum
