@@ -32,6 +32,18 @@ git checkout redo-according-to-yocto
     * set number of jobs to 4 `export JOBS=4`
     * edit CXXFLAGS - remove `-Os`
 
+1. Build and install raspberrypi
+    ```
+    cd raspberrypi
+    abuild -F checksum
+    abuild -Fr
+    apk add --repository /root/packages/wpewebkit_alpine/armhf/ raspberrypi-dev
+    # fix some issues with not finding rpi libs and header files
+    ln -s /opt/vc/lib/libbcm_host.so /lib/libbcm_host.so
+    ln -s /opt/vc/include/EGL /usr/include/EGL
+    ln -s /opt/vc/include/interface /usr/include/interface
+    ```
+
 1. Build and install libepoxy-rpi
     ```
     cd libepoxy-rpi
