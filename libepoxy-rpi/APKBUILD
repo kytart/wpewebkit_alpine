@@ -24,7 +24,7 @@ prepare() {
 build() {
 	cd "$builddir"
 	export PKG_CONFIG_PATH=/opt/vc/lib/pkgconfig
-	./configure --build=$CBUILD --host=$CHOST --prefix=/usr --mandir=/usr/share/man --disable-static --enable-shared --enable-x11=no
+	./configure --build=$CBUILD --host=$CHOST --prefix=/usr --mandir=/usr/share/man --disable-static --enable-shared --enable-x11=no --enable-egl=yes
 	make
 }
 
